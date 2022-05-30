@@ -1,16 +1,43 @@
 import 'package:flutter/material.dart';
 
-class TransactionInput extends StatelessWidget {
-  var textInput = TextEditingController();
-  var amountInput = TextEditingController();
+class TransactionInput extends StatefulWidget {
   Function txAdd;
   // const TransactionInput({Key? key}) : super(key: key);
   TransactionInput(this.txAdd);
 
   @override
+  State<TransactionInput> createState() => _TransactionInputState();
+}
+
+class _TransactionInputState extends State<TransactionInput> {
+  var textInput = TextEditingController();
+  var amountInput = TextEditingController();
+
+  void submitData() {
+    final enterdTitle = textInput.text;
+    final enteredAmount = double.parse(amountInput.text);
+
+    if (enterdTitle.isEmpty || enteredAmount <= 0) {
+      return;
+    }
+
+    widget.txAdd(
+      enterdTitle,
+      enteredAmount.toStringAsFixed(1),
+    );
+
+    Navigator.of(context).pop();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(10),
+      margin: const EdgeInsets.only(
+        top: 50,
+        left: 10,
+        right: 10,
+        bottom: 10,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -24,6 +51,7 @@ class TransactionInput extends StatelessWidget {
                 hintText: 'Enter Title',
               ),
               controller: textInput,
+              onSubmitted: (_) => submitData(),
             ),
           ),
           Container(
@@ -36,6 +64,7 @@ class TransactionInput extends StatelessWidget {
                 hintText: 'Enter Amount',
               ),
               controller: amountInput,
+              onSubmitted: (_) => submitData(),
             ),
           ),
           Container(
@@ -44,7 +73,8 @@ class TransactionInput extends StatelessWidget {
             ),
             child: RaisedButton(
               onPressed: () {
-                txAdd(textInput.text, double.parse(amountInput.text));
+                submitData();
+
                 print(amountInput.text);
                 print(textInput.text);
               },

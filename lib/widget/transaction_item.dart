@@ -22,7 +22,7 @@ class TransactionItem extends StatelessWidget {
             color: Colors.blue,
           )),
           child: Text(
-            amount.toString(),
+            "\$$amount",
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,

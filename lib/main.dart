@@ -1,6 +1,8 @@
+import 'package:expense/transaction_input.dart';
+import 'package:expense/transaction_list.dart';
 import 'package:flutter/material.dart';
 
-import 'user_transaction.dart';
+import './transaction.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,8 +17,57 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   // const HomePage({Key? key}) : super(key: key);
+
+  var textInput = TextEditingController();
+  var amountInput = TextEditingController();
+
+  List<Transaction> user_transactions = [
+    Transaction(
+      title: "Food",
+      amount: 35.5,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      title: "Transport",
+      amount: 10.5,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      title: "Utility",
+      amount: 55.5,
+      date: DateTime.now(),
+    ),
+  ];
+
+  void addNewTx(String txTitle, String txAmount) {
+    setState(
+      () {
+        user_transactions.add(
+          Transaction(
+            title: txTitle,
+            amount: double.parse(txAmount),
+            date: DateTime.now(),
+          ),
+        );
+      },
+    );
+  }
+
+  void startAddNewTransaction(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (tx) {
+        return TransactionInput(addNewTx);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +84,7 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              print("Hello");
+              startAddNewTransaction(context);
             },
             icon: const Icon(
               Icons.add,
@@ -47,18 +98,20 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.white10,
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Card(
             child: Text("Chart"),
           ),
-          UserTransaction(),
+          TransactionList(user_transactions)
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          startAddNewTransaction(context);
+        },
         child: const Icon(
           Icons.add,
         ),
