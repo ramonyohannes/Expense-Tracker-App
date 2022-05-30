@@ -30,6 +30,18 @@ class HomePage extends StatelessWidget {
             color: Colors.black,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              print("Hello");
+            },
+            icon: const Icon(
+              Icons.add,
+              color: Colors.black,
+              size: 30,
+            ),
+          )
+        ],
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.white10,
@@ -43,6 +55,13 @@ class HomePage extends StatelessWidget {
           ),
           UserTransaction(),
         ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(
+          Icons.add,
+        ),
       ),
     );
   }
