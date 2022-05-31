@@ -3,6 +3,7 @@ import 'package:expense/transaction_list.dart';
 import 'package:flutter/material.dart';
 
 import './transaction.dart';
+import './widget/chart.dart';
 
 void main() => runApp(MyApp());
 
@@ -56,8 +57,8 @@ class _HomePageState extends State<HomePage> {
   var textInput = TextEditingController();
   var amountInput = TextEditingController();
 
-  List<Transaction> user_transactions = [
-    /*   Transaction(
+  List<Transaction> userTransactions = [
+    /*  Transaction(
       title: "Food",
       amount: 35.5,
       date: DateTime.now(),
@@ -74,10 +75,16 @@ class _HomePageState extends State<HomePage> {
     ), */
   ];
 
+  List<Transaction> get recentTransaction {
+    return userTransactions.where((tx) {
+      return tx.date.isAfter(DateTime.now().subtract(const Duration(days: 7)));
+    }).toList();
+  }
+
   void addNewTx(String txTitle, String txAmount) {
     setState(
       () {
-        user_transactions.add(
+        userTransactions.add(
           Transaction(
             title: txTitle,
             amount: double.parse(txAmount),
@@ -99,16 +106,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // print(recentTransaction);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           "Expense",
-          /*  style: TextStyle(
-            fontFamily: "Quicksand",
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ), */
         ),
         actions: [
           IconButton(
@@ -122,18 +124,12 @@ class _HomePageState extends State<HomePage> {
             ),
           )
         ],
-        /*    centerTitle: true,
-        elevation: 0,
-        backgroundColor: Colors.white10, */
       ),
       body: Column(
-        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Card(
-            child: Text("Chart"),
-          ),
-          TransactionList(user_transactions)
+          Chart(recentTransaction),
+          TransactionList(userTransactions),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

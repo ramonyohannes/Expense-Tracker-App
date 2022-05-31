@@ -12,10 +12,10 @@ class TransactionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 3,
+      elevation: 1,
       child: ListTile(
         leading: Container(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             border: Border.all(
               width: 2,
@@ -25,7 +25,7 @@ class TransactionItem extends StatelessWidget {
           child: Text(
             "\$$amount",
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 15,
               fontWeight: FontWeight.bold,
               color: Theme.of(context).primaryColor,
             ),

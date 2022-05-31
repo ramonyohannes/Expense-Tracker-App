@@ -75,8 +75,8 @@ class _TransactionInputState extends State<TransactionInput> {
               onPressed: () {
                 submitData();
 
-                print(amountInput.text);
-                print(textInput.text);
+                /* print(amountInput.text);
+                print(textInput.text); */
               },
               child: const Text("Add Tx"),
             ),
