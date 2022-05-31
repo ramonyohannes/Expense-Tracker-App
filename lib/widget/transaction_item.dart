@@ -17,10 +17,11 @@ class TransactionItem extends StatelessWidget {
         leading: Container(
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
-              border: Border.all(
-            width: 2,
-            color: Colors.blue,
-          )),
+            border: Border.all(
+              width: 2,
+              color: Theme.of(context).primaryColorDark,
+            ),
+          ),
           child: Text(
             "\$$amount",
             style: const TextStyle(
@@ -31,13 +32,11 @@ class TransactionItem extends StatelessWidget {
         ),
         title: Text(
           title,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
+          style: Theme.of(context).textTheme.headline1,
         ),
         subtitle: Text(
           DateFormat.yMEd().format(date),
+          // style: Theme.of(context).textTheme.headline1,
         ),
       ),
     );

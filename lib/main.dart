@@ -12,6 +12,29 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Material App',
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        accentColor: Colors.blue,
+        fontFamily: "Quicksand",
+        textTheme: const TextTheme(
+          headline1: TextStyle(
+            fontFamily: "OpenSans",
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+          elevation: 0,
+          backgroundColor: Colors.white10,
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 25,
+            fontFamily: "OpenSans",
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       home: HomePage(),
     );
   }
@@ -75,11 +98,12 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text(
           "Expense",
-          style: TextStyle(
+          /*  style: TextStyle(
+            fontFamily: "Quicksand",
             fontSize: 25,
             fontWeight: FontWeight.bold,
             color: Colors.black,
-          ),
+          ), */
         ),
         actions: [
           IconButton(
@@ -93,9 +117,9 @@ class _HomePageState extends State<HomePage> {
             ),
           )
         ],
-        centerTitle: true,
+        /*    centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.white10,
+        backgroundColor: Colors.white10, */
       ),
       body: Column(
         // mainAxisAlignment: MainAxisAlignment.spaceAround,
