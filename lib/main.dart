@@ -22,6 +22,11 @@ class MyApp extends StatelessWidget {
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
           ),
+          headline5: TextStyle(
+            fontFamily: "QuickSand",
+            fontSize: 25.0,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         appBarTheme: const AppBarTheme(
           centerTitle: true,
@@ -52,7 +57,7 @@ class _HomePageState extends State<HomePage> {
   var amountInput = TextEditingController();
 
   List<Transaction> user_transactions = [
-    Transaction(
+    /*   Transaction(
       title: "Food",
       amount: 35.5,
       date: DateTime.now(),
@@ -66,7 +71,7 @@ class _HomePageState extends State<HomePage> {
       title: "Utility",
       amount: 55.5,
       date: DateTime.now(),
-    ),
+    ), */
   ];
 
   void addNewTx(String txTitle, String txAmount) {

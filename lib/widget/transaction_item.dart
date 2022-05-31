@@ -24,9 +24,10 @@ class TransactionItem extends StatelessWidget {
           ),
           child: Text(
             "\$$amount",
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
+              color: Theme.of(context).primaryColor,
             ),
           ),
         ),
@@ -36,7 +37,6 @@ class TransactionItem extends StatelessWidget {
         ),
         subtitle: Text(
           DateFormat.yMEd().format(date),
-          // style: Theme.of(context).textTheme.headline1,
         ),
       ),
     );
