@@ -81,14 +81,15 @@ class _HomePageState extends State<HomePage> {
     }).toList();
   }
 
-  void addNewTx(String txTitle, String txAmount) {
+  void addNewTx(String txTitle, String txAmount, DateTime pickedDate) {
     setState(
       () {
         userTransactions.add(
           Transaction(
+            id: DateTime.now().toString(),
             title: txTitle,
             amount: double.parse(txAmount),
-            date: DateTime.now(),
+            date: pickedDate,
           ),
         );
       },
@@ -102,6 +103,12 @@ class _HomePageState extends State<HomePage> {
         return TransactionInput(addNewTx);
       },
     );
+  }
+
+  void deleteTransaction(String id) {
+    setState(() {
+      userTransactions.removeWhere((tx) => tx.id == id);
+    });
   }
 
   @override
@@ -129,7 +136,7 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Chart(recentTransaction),
-          TransactionList(userTransactions),
+          TransactionList(userTransactions, deleteTransaction),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

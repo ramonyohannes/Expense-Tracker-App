@@ -23,7 +23,10 @@ class Chart extends StatelessWidget {
       print(DateFormat.E().format(weekDay));
       print(totalSum.toString());
 
-      return {"date": DateFormat.E().format(weekDay), "amount": totalSum};
+      return {
+        "date": DateFormat.E().format(weekDay).substring(0, 1),
+        "amount": totalSum
+      };
     });
   }
 
@@ -36,25 +39,31 @@ class Chart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(groupedTransaction);
-    return Card(
-        elevation: 5,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ...groupedTransaction.map((data) {
-                return Chart_Bar(
-                  "${data["date"]}",
-                  data["amount"] as double,
-                  totalSSpending == 0.0
-                      ? 0.0
-                      : (data["amount"] as double) / totalSSpending,
-                );
-                //Text("${data["date"]} : ${data["amount"]}");
-              }).toList(),
-            ],
-          ),
-        ));
+    return Container(
+      margin: EdgeInsets.all(15),
+      child: Card(
+          elevation: 5,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ...groupedTransaction.map((data) {
+                  return Flexible(
+                    fit: FlexFit.tight,
+                    child: Chart_Bar(
+                      "${data["date"]}",
+                      data["amount"] as double,
+                      totalSSpending == 0.0
+                          ? 0.0
+                          : (data["amount"] as double) / totalSSpending,
+                    ),
+                  );
+                  //Text("${data["date"]} : ${data["amount"]}");
+                }).toList(),
+              ],
+            ),
+          )),
+    );
   }
 }

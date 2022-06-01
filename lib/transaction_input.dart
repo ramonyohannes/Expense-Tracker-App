@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:intl/intl.dart';
+
 class TransactionInput extends StatefulWidget {
   Function txAdd;
   // const TransactionInput({Key? key}) : super(key: key);
@@ -13,6 +15,8 @@ class _TransactionInputState extends State<TransactionInput> {
   var textInput = TextEditingController();
   var amountInput = TextEditingController();
 
+  var pickedDate;
+
   void submitData() {
     final enterdTitle = textInput.text;
     final enteredAmount = double.parse(amountInput.text);
@@ -24,9 +28,23 @@ class _TransactionInputState extends State<TransactionInput> {
     widget.txAdd(
       enterdTitle,
       enteredAmount.toStringAsFixed(1),
+      pickedDate,
     );
 
     Navigator.of(context).pop();
+  }
+
+  void startShowDatePicker(BuildContext context) {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2010),
+      lastDate: DateTime.now(),
+    ).then((value) {
+      setState(() {
+        pickedDate = value;
+      });
+    });
   }
 
   @override
@@ -68,15 +86,33 @@ class _TransactionInputState extends State<TransactionInput> {
             ),
           ),
           Container(
+            margin: EdgeInsets.all(10),
+            child: Row(
+              children: [
+                RaisedButton(
+                  onPressed: () {
+                    startShowDatePicker(context);
+                  },
+                  child: Text("Pick Date"),
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  pickedDate == null
+                      ? "No Date Selected"
+                      : DateFormat.yMEd().format(pickedDate),
+                ),
+              ],
+            ),
+          ),
+          Container(
             margin: const EdgeInsets.only(
               right: 10,
             ),
             child: RaisedButton(
               onPressed: () {
                 submitData();
-
-                /* print(amountInput.text);
-                print(textInput.text); */
               },
               child: const Text("Add Tx"),
             ),

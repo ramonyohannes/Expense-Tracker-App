@@ -7,7 +7,8 @@ import 'transaction.dart';
 class TransactionList extends StatelessWidget {
   // const TransactionList({Key? key}) : super(key: key);
   final List<Transaction> user_transactions;
-  TransactionList(this.user_transactions);
+  final Function deleteTx;
+  TransactionList(this.user_transactions, this.deleteTx);
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +39,11 @@ class TransactionList extends StatelessWidget {
           : ListView.builder(
               itemBuilder: (context, index) {
                 return TransactionItem(
+                  user_transactions[index].id,
                   user_transactions[index].amount,
                   user_transactions[index].date,
                   user_transactions[index].title,
+                  deleteTx,
                 );
               },
               itemCount: user_transactions.length,
